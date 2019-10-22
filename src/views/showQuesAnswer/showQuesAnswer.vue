@@ -1,23 +1,24 @@
 <!--  -->
 <template>
   <div style="width:100%">
-      <h1>查看{{title}}问卷的答卷</h1>
-       <el-button type="danger" plain  @click="handleAllDdelete">删除所有答卷</el-button>
-  <el-table :data="ansTable" border style="width: 100%">
-    <el-table-column prop="id" label="ID" width="50"></el-table-column>
-    <el-table-column prop="ipAddr" label="用户IP" width="180"></el-table-column>
-    <el-table-column prop="createTime" label="提交时间" width="180"></el-table-column>
-    <el-table-column prop="useTime" label="答题用时/s" width="90"></el-table-column>
-    <el-table-column prop="userCode" label="用户Code" width="180"></el-table-column>
-    <el-table-column prop="sourceDetail" label="来源设备" ></el-table-column>
-    <el-table-column prop="status" label="操作">
-        <template slot-scope="scope">
-      <el-button type="primary" plain size="mini" @click="handleView(scope.$index, scope.row)">查看详情</el-button>
-      <el-button type="danger" plain size="mini" @click="handleDdelete(scope.$index, scope.row)">删除</el-button>
-    </template>
-    </el-table-column>
-  </el-table>
-  <pagination :total="total" :page.sync="pageQuery.pageNo" @getNewQues="getNewQues"></pagination>
+      <h1 class="title">查看{{title}}问卷的答卷</h1>
+
+      <el-table :data="ansTable" border style="width: 100%">
+        <el-table-column prop="id" label="ID" width="50"></el-table-column>
+        <el-table-column prop="ipAddr" label="用户IP" width="180"></el-table-column>
+        <el-table-column prop="createTime" label="提交时间" width="180"></el-table-column>
+        <el-table-column prop="useTime" label="答题用时/s" width="90"></el-table-column>
+        <el-table-column prop="userCode" label="用户Code" width="180"></el-table-column>
+        <el-table-column prop="sourceDetail" label="来源设备" ></el-table-column>
+        <el-table-column prop="status" label="操作">
+            <template slot-scope="scope">
+          <el-button type="primary" plain size="mini" @click="handleView(scope.$index, scope.row)">查看详情</el-button>
+          <el-button type="danger" plain size="mini" @click="handleDdelete(scope.$index, scope.row)">删除</el-button>
+        </template>
+        </el-table-column>
+      </el-table>
+      <el-button type="danger" @click="handleAllDdelete" class="delBtn">删除所有答卷</el-button>
+      <pagination :total="total" :page.sync="pageQuery.pageNo" @getNewQues="getNewQues"></pagination>
         <el-dialog title="答卷详情" :visible.sync="dialogTableVisible">
             <p v-for="(item, index) in answerDetail" :key="index">第{{index+1}}题 --- {{item.answers}}</p>
         </el-dialog>
@@ -126,4 +127,16 @@ export default {
 
 </script>
 <style lang='scss' scoped>
+    .title{
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 35%;
+        font-size: 30px;
+        margin-bottom: 25px;
+        color:#409EFF;
+    }
+    .delBtn{
+        margin:15px 0 0 15px;
+    }
 </style>

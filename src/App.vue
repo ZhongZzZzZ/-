@@ -12,7 +12,6 @@
   @import "assets/css/reset";
   .app{
     height: 100vh;
-    width: 100%;
-    overflow: hidden;
+    width: 100vw;
   }
 </style>

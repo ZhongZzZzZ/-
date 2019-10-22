@@ -1,99 +1,100 @@
 <template>
-    <div class="quesContainer">
-        <h1>{{operation === 'edit' ? '修改' : '创建'}}问卷</h1>
-       <el-form :label-position="labelPosition" label-width="80px" >
-               <el-form-item label="问卷标题" class="quesTitle" >
-                   <el-input v-model="quesList.title" placeholder="请输入标题" ></el-input>
-               </el-form-item>
-               <el-form-item label="问卷说明" class="quesTitle" >
-                   <el-input v-model="quesList.instructions" placeholder="请输入说明" ></el-input>
-               </el-form-item>
-               <el-form-item label="问卷状态" class="quesTitle" >
-                    <el-radio-group v-model="quesObj.status">
-                        <el-radio :label="0">发布</el-radio>
-                        <el-radio :label="1">未发布</el-radio>
-                        <el-radio :label="2">删除</el-radio>
-                    </el-radio-group>
-               </el-form-item>
-                <el-form-item>
-                    <el-button type="primary"  @click="addRadio('danxuan')">单选题</el-button>
-                    <el-button type="primary"  @click="addCheckbox('duoxuan')">多选题</el-button>
-                    <el-button type="primary"  @click="addTextarea('tiankong')">填空题</el-button>
-                    <el-button type="primary"  @click="addPaper">提交</el-button>
-                </el-form-item>
-                <el-form-item>
-                    <questionList :questionList="quesList" :isCreate="isCreate"></questionList>
-                </el-form-item>
-       </el-form>
-        <!--单选题弹框-->
-        <el-dialog title="添加单选题" :visible.sync="radioVisible" width="650px">
-            <el-form label-width="80px">
-                <el-form-item label="题目">
-                    <el-input v-model="addRadioForm.question"></el-input>
-                </el-form-item>
-                <el-form-item label="选项">
-                    <div v-for="(item,index) in addRadioForm.options" :key="index">
-                        <el-row>
-                            <el-col :span="18">
-                                <el-input  placeholder="请输入内容" v-model="addRadioForm.options[index]" ></el-input>
-                            </el-col>
-                                <el-button type="success" @click="addRadioItem(index)" icon="el-icon-plus" size="small"></el-button>
-                                <el-button type="danger" @click="delRadioItem(index)" icon="el-icon-minus" size="small"></el-button>
-                        </el-row>
-                    </div>
-                </el-form-item>
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-             <el-button @click="calAdd">取 消</el-button>
-             <el-button type="primary" @click="addRadioList(addRadioForm)">确 定</el-button>
-            </span>
-        </el-dialog>
-        <!--多选题弹框-->
-        <el-dialog title="添加多选题" :visible.sync="checkboxVisible" width="650px">
-            <el-form label-width="80px">
-                <el-form-item label="题目">
-                    <el-input v-model="addCheckboxForm.question"></el-input>
-                </el-form-item>
-                <el-form-item label="选项">
-                    <div v-for="(item,index) in addCheckboxForm.options" :key="index">
-                        <el-row>
-                            <el-col :span="18">
-                                <el-input  placeholder="请输入内容" v-model="addCheckboxForm.options[index]" ></el-input>
-                            </el-col>
-                            <el-button type="success" @click="addCheckboxItem(index)" icon="el-icon-plus" size="small"></el-button>
-                            <el-button type="danger" @click="delCheckboxItem(index)" icon="el-icon-minus" size="small"></el-button>
-                        </el-row>
-                    </div>
-                </el-form-item>
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-             <el-button @click="calAdd">取 消</el-button>
-             <el-button type="primary" @click="addCheckboxList(addCheckboxForm)">确 定</el-button>
-            </span>
-         </el-dialog>
-        <!--填空题弹框-->
-        <el-dialog title="添加填空题" :visible.sync="textareaVisible" width="650px">
-            <el-form label-width="80px">
-                <el-form-item label="题目">
-                    <el-input v-model="addTextareaForm.question"></el-input>
-                </el-form-item>
-                <el-form-item label="选项">
-                    <div v-for="(item,index) in addTextareaForm.options" :key="index">
-                        <el-row>
-                            <el-col :span="24">
-                                <el-input  placeholder="请输入内容" type="textarea" :rows="5" v-model="addTextareaForm.options[index]" ></el-input>
-                            </el-col>
-                        </el-row>
-                    </div>
-                </el-form-item>
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-             <el-button @click="calAdd">取 消</el-button>
-             <el-button type="primary" @click="addTextareaList(addTextareaForm)">确 定</el-button>
-            </span>
-        </el-dialog>
-    </div>
-
+        <div class="quesContainer">
+            <h1 class="title">{{operation === 'edit' ? '修改' : '创建'}}问卷</h1>
+           <el-form :label-position="labelPosition" label-width="80px" >
+                   <el-form-item label="问卷标题" class="quesTitle" >
+                       <el-input v-model="quesList.title" placeholder="请输入标题" ></el-input>
+                   </el-form-item>
+                   <el-form-item label="问卷说明" class="quesTitle" >
+                       <el-input v-model="quesList.instructions" placeholder="请输入说明" ></el-input>
+                   </el-form-item>
+                   <el-form-item label="问卷状态" class="quesTitle" >
+                        <el-radio-group v-model="quesObj.status">
+                            <el-radio :label="0">发布</el-radio>
+                            <el-radio :label="1">未发布</el-radio>
+                            <el-radio :label="2">删除</el-radio>
+                        </el-radio-group>
+                   </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary"  @click="addRadio('danxuan')">单选题</el-button>
+                        <el-button type="primary"  @click="addCheckbox('duoxuan')">多选题</el-button>
+                        <el-button type="primary"  @click="addTextarea('tiankong')">填空题</el-button>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="success"  @click="addPaper" >提交</el-button>
+                    </el-form-item>
+                    <el-form-item>
+                        <questionList :questionList="quesList" :isCreate="isCreate" class="quesList"></questionList>
+                    </el-form-item>
+           </el-form>
+            <!--单选题弹框-->
+            <el-dialog title="添加单选题" :visible.sync="radioVisible" width="650px">
+                <el-form label-width="80px">
+                    <el-form-item label="题目">
+                        <el-input v-model="addRadioForm.question"></el-input>
+                    </el-form-item>
+                    <el-form-item label="选项">
+                        <div v-for="(item,index) in addRadioForm.options" :key="index">
+                            <el-row>
+                                <el-col :span="18">
+                                    <el-input  placeholder="请输入内容" v-model="addRadioForm.options[index]" ></el-input>
+                                </el-col>
+                                    <el-button type="success" @click="addRadioItem(index)" icon="el-icon-plus" size="small"></el-button>
+                                    <el-button type="danger" @click="delRadioItem(index)" icon="el-icon-minus" size="small"></el-button>
+                            </el-row>
+                        </div>
+                    </el-form-item>
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                 <el-button @click="calAdd">取 消</el-button>
+                 <el-button type="primary" @click="addRadioList(addRadioForm)">确 定</el-button>
+                </span>
+            </el-dialog>
+            <!--多选题弹框-->
+            <el-dialog title="添加多选题" :visible.sync="checkboxVisible" width="650px">
+                <el-form label-width="80px">
+                    <el-form-item label="题目">
+                        <el-input v-model="addCheckboxForm.question"></el-input>
+                    </el-form-item>
+                    <el-form-item label="选项">
+                        <div v-for="(item,index) in addCheckboxForm.options" :key="index">
+                            <el-row>
+                                <el-col :span="18">
+                                    <el-input  placeholder="请输入内容" v-model="addCheckboxForm.options[index]" ></el-input>
+                                </el-col>
+                                <el-button type="success" @click="addCheckboxItem(index)" icon="el-icon-plus" size="small"></el-button>
+                                <el-button type="danger" @click="delCheckboxItem(index)" icon="el-icon-minus" size="small"></el-button>
+                            </el-row>
+                        </div>
+                    </el-form-item>
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                 <el-button @click="calAdd">取 消</el-button>
+                 <el-button type="primary" @click="addCheckboxList(addCheckboxForm)">确 定</el-button>
+                </span>
+             </el-dialog>
+            <!--填空题弹框-->
+            <el-dialog title="添加填空题" :visible.sync="textareaVisible" width="650px">
+                <el-form label-width="80px">
+                    <el-form-item label="题目">
+                        <el-input v-model="addTextareaForm.question"></el-input>
+                    </el-form-item>
+                    <el-form-item label="选项">
+                        <div v-for="(item,index) in addTextareaForm.options" :key="index">
+                            <el-row>
+                                <el-col :span="24">
+                                    <el-input  placeholder="请输入内容" type="textarea" :rows="5" v-model="addTextareaForm.options[index]" ></el-input>
+                                </el-col>
+                            </el-row>
+                        </div>
+                    </el-form-item>
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                 <el-button @click="calAdd">取 消</el-button>
+                 <el-button type="primary" @click="addTextareaList(addTextareaForm)">确 定</el-button>
+                </span>
+            </el-dialog>
+        </div>
 </template>
 <script>
 
@@ -223,7 +224,7 @@ export default {
           if(this.operation === 'create') {
               allPaperObj.addPaper(this.getQuesAllParams())
              .then(result => {
-                 
+
                  this.$notify({
                     title: '成功',
                     message: '创建问卷成功',
@@ -304,10 +305,29 @@ export default {
 </script>
 
 <style scoped>
+
 .quesContainer {
   margin: 15px 15px 0 0;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.title{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25%;
+    font-size: 30px;
+    margin-bottom: 25px;
+    color:#409EFF;
 }
 .quesTitle {
   width: 500px;
+}
+.quesList{
+    left: -5%;
+}
+.el-form-item{
+    margin-bottom: 10px;
 }
 </style>

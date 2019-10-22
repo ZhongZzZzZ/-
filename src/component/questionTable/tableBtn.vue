@@ -35,12 +35,14 @@ export default {
       //this.$router.push({name:"showQues",params: {paperCode:row.code}})
       const routerData = this.$router.resolve({
         name:'showQues',
-        params: {paperCode:row.code}
+        params: {paperCode:row.code,status:row.status}
       })
       window.open(routerData.href,'_blank')
+        console.log(row.status)
     },
     handleViewAnswer(index, row) {
       //点击查看答卷
+
       this.$router.push({name:"showQuesAnswer",params: {paperCode:row.code,title:row.name}})
     },
     handleDelete(index, row) {

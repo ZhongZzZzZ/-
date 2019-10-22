@@ -62,9 +62,12 @@ export default {
   position: relative;
   background: #f5f7f9;
   height: 100vh;
+  width: 100vw;
+  min-width: 750px;
 }
 .lay-out-box {
   height: 100%;
+  box-sizing: border-box;
 }
 .el-menu-vertical-demo {
   height: 100%;
@@ -74,6 +77,7 @@ export default {
   text-align: center;
   font-size: 24px;
   background-color: #545c64;
+  box-sizing: border-box;
 }
 
 .layout-right {

@@ -1,9 +1,7 @@
-
 <template>
-  <div>
-      <h1>问卷查看</h1>
-       <questionList :questionList="questionData"></questionList>
-      <el-button type="primary" plain @click="addAnswer">提交</el-button>
+  <div class="showQues">
+       <questionList :questionList="questionData" class="quesList"></questionList>
+      <el-button type="primary" class="quesBtn" @click="addAnswer" :disabled="this.status === '1'?true:false">提交</el-button>
   </div>
 </template>
 
@@ -17,6 +15,7 @@ export default {
     return {
       questionData:'',
       openTime:new Date().getTime(),//用户打开问卷的此刻
+      status:undefined
     };
   },
   components: {
@@ -73,9 +72,33 @@ export default {
   },
   created(){
       this.getSinglePaper({paperCode:this.$route.params.paperCode})
+      this.status = this.$route.params.status
   },
 }
 
 </script>
 <style lang='scss' scoped>
+    .showQues{
+        position: relative;
+    }
+    .quesBtn{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 15px;
+        width: 25%;
+    }
+    .quesList{
+        position: relative;
+        left:0;
+    }
+    @media screen and (max-width:760px){
+        .quesBtn{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 15px;
+            width: 90%;
+        }
+    }
 </style>

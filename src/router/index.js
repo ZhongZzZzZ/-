@@ -45,12 +45,13 @@ export const router = new Router({
           component:()=>import('../views/answerSuccess')
         },
         {
-            path:'/showQues/:paperCode',
+            path:'/showQues/:paperCode/:status',
             name:'showQues',
             component:() => import('../views/showQues/showQues')
         },
         {
             path:'*',
+            name:'404NotFound',
             component:()=>import('../views/404page')
         }
     ]

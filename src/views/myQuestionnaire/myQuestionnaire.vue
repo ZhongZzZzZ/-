@@ -35,6 +35,7 @@ export default {
         .then(result => {
           this.allPaper = result.data.results;
           this.total = result.data.total
+            console.log(result)
         })
         .catch(err => {
           console.log(err);
@@ -57,14 +58,14 @@ export default {
           }
         })
         .then(result => {
-          
+
           this.allPaper = result.data.results
           this.total = result.data.total
-          
+
         })
         .catch(err => {
           console.log(err);
-        });  
+        });
     },
     renderStatusTag(status) {
       let result;

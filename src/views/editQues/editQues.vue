@@ -1,4 +1,3 @@
-<!--  -->
 <template>
     <questionOptions operation="edit" :isCreate="true"></questionOptions>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <questionOptions operation="create" :isCreate="true"></questionOptions>
+    <questionOptions operation="create" :isCreate="true" ></questionOptions>
 </template>
 
 <script>
@@ -20,4 +20,7 @@ export default {
 
 </script>
 <style lang='scss' scoped>
+    .addIndex{
+
+    }
 </style>
