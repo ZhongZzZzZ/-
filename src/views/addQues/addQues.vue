@@ -11,11 +11,14 @@ export default {
     return {
     };
   },
+
   components: {
       questionOptions,
   },
   computed: {},
-  methods: {}
+  methods: {
+
+  }
 }
 
 </script>

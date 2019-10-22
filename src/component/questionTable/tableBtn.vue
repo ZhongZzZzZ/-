@@ -1,21 +1,24 @@
 <template>
-  <el-table-column label="操作">
-    <template slot-scope="scope" v-if="btnType === 'myQues'">
-      <el-button size="mini" @click="handleView(scope.$index, scope.row)">查看问卷</el-button>
-      <el-button size="mini" @click="handleViewAnswer(scope.$index, scope.row)">查看答卷</el-button>
-      <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-      <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-    </template>
-    <template slot-scope="scope" v-else>
-      <el-button size="mini" @click="handleView(scope.$index, scope.row)">查看</el-button>
-      <el-button size="mini" @click="handleRevert(scope.$index, scope.row)">还原</el-button>
-    </template>
-  </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope" v-if="btnType === 'myQues'">
+          <el-button size="mini" @click="handleView(scope.$index, scope.row)">查看问卷</el-button>
+          <el-button size="mini" @click="handleViewAnswer(scope.$index, scope.row)">查看答卷</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-button size="mini" type="success" @click="sendQRcode(scope.$index, scope.row)">生成二维码</el-button>
+        </template>
+        <template slot-scope="scope" v-else>
+          <el-button size="mini" @click="handleView(scope.$index, scope.row)">查看</el-button>
+          <el-button size="mini" @click="handleRevert(scope.$index, scope.row)">还原</el-button>
+        </template>
+
+      </el-table-column>
 </template>
 
 <script>
 import ajaxAllPaperObj from "../../api/questionPaper";
 import Bus from "@/utils/eventBus";
+
 export default {
   name:'tableBtn',
   props: {
@@ -74,6 +77,13 @@ export default {
         handleEdit(index,row) {//点击编辑
         this.$router.push({name:"editQues",params: {paperCode:row.code,id:row.id}})
     },
+    sendQRcode(index,row){
+        const routerData = this.$router.resolve({
+            name:'showQues',
+            params: {paperCode:row.code,status:row.status}
+        })
+      this.$emit('getQRcode',routerData)
+    }
   }
 };
 </script>
