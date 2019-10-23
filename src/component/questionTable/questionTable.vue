@@ -14,6 +14,7 @@
             title="生成的二维码"
             :visible.sync="dialogVisible"
             width="30%"
+            class="elDialog"
             >
       <div id="qrCode" ref="qrCodeDiv" class="QRcode"></div>
       <span slot="footer" class="dialog-footer">
@@ -110,5 +111,10 @@ export default {
     position: relative;
     left:-50%;
     transform: translateX(50%);
+  }
+  @media screen and (max-width: 760px) {
+    el-dialog__body{
+      width: 100%;
+    }
   }
 </style>

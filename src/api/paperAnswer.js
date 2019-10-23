@@ -32,6 +32,15 @@ export default {
             method: 'delete',
             params:{paperCode}
         })
+    },
+    //下载一份问卷所有答卷
+    getAllAnswerPaper(paperCode){
+        return request({
+            url:'/download',
+            method:'get',
+            params:{paperCode:paperCode},
+
+        })
     }
-    
+
 }
